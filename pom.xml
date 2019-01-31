@@ -11,7 +11,7 @@
 	<groupId>com.jarik.library</groupId>
 	<artifactId>library</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>library</name>
+	<bookName>library</bookName>
 	<description>Library with Spring Boot</description>
 
 	<properties>
