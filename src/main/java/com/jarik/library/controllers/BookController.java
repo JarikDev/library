@@ -1,25 +1,25 @@
 package com.jarik.library.controllers;
 
-import com.jarik.library.controllers.payload.UploadBookReponse;
+import com.jarik.library.controllers.payload.UploadBookResponse;
 import com.jarik.library.entities.Book;
 import com.jarik.library.repositories.BookRepository;
 import com.jarik.library.service.StorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -41,9 +41,39 @@ public class BookController {
 
 
 
-
-
     @PostMapping("/addbook")
+    public String addBook(@RequestParam("books") MultipartFile  book ,Model model) {
+
+        Book bookFile= storageService.storeBook(book);
+
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(bookFile.getId())
+                .toUriString();
+
+          new UploadBookResponse(bookFile.getBookName(), fileDownloadUri,
+                book.getContentType(), book.getSize());
+
+
+        model.addAttribute("books", bookRepository.findAll());
+        return "index";
+    }
+
+  /*  @PostMapping("/uploadMultipleFiles")
+    public String uploadMultipleFiles(@RequestParam("files") MultipartFile[] files ) {
+          Arrays.asList(files)
+                .stream()
+                .map(file -> addBook(file))
+                .collect(Collectors.toList());
+        return "index";
+    }
+*/
+
+
+
+
+    //commit before indian guide
+    /*@PostMapping("/addbook")
     public String addBook(@RequestParam("book") MultipartFile book, BindingResult result, Model model) {
         Book bookFile=storageService.storeBook(book);
 
@@ -52,13 +82,13 @@ public class BookController {
                 .path(bookFile.getId())
                 .toUriString();
 
-          new UploadBookReponse (bookFile.getBookName(), bookDownloadUri,
+          new UploadBookResponse (bookFile.getBookName(), bookDownloadUri,
                 book.getContentType(), book.getSize());
 
         if (result.hasErrors()) {
             return "add-book";
         }
-//       bookRepository.save(book);
+       bookRepository.save(book);
        model.addAttribute("books", bookRepository.findAll());
         return "index";
     }
@@ -113,7 +143,7 @@ public class BookController {
         bookRepository.delete(book);
         model.addAttribute("books", bookRepository.findAll());
         return "index";
-    }
+    }*/
 
 
     //Old version, stored for heirs
