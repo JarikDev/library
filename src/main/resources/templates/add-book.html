@@ -5,8 +5,10 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Upload book</title>
     <meta bookName="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/shards.min.css">
 </head>
 <body>
@@ -18,19 +20,30 @@
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="bookName" class="col-form-label">Book name</label>
-                        <input type="text" th:field="*{bookName}" class="form-control" id="bookName" placeholder="book name...">
-                        <span th:if="${#fields.hasErrors('bookName')}" th:errors="*{bookName}" class="text-danger"></span>
+                        <input type="text" th:field="*{bookName}" class="form-control" id="bookName"
+                               placeholder="book name...">
+                        <span th:if="${#fields.hasErrors('bookName')}" th:errors="*{bookName}"
+                              class="text-danger"></span>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="description" class="col-form-label">Description</label>
-                        <input type="text" th:field="*{description}" class="form-control" id="description" placeholder="description...">
-                        <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></span>
+                        <input type="text" th:field="*{description}" class="form-control" id="description"
+                               placeholder="description...">
+                        <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+                              class="text-danger"></span>
                     </div>
 
                     <div class="form-group col-md-12">
-                        <label for="description" class="col-form-label">Browse</label>
-                        <input type="text" th:field="*{description}" class="form-control" id="description" placeholder="path...">
-                        <span th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-primary"><i class="fas fa-folder-open ml-2"></i></span>
+                        <form th:object="${book}" method="POST"
+                              action="" enctype="multipart/form-data">
+                            Description:
+                            <br>
+                            <input th:field="*{description}" style="width:300px;"/>
+                            <br/><br/>
+                            File to upload: <input th:field="*{bookFile}" type="file"/>
+                            <br/>
+                            <input type="submit" value="Upload">
+                        </form>
                     </div>
 
 

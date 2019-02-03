@@ -1,5 +1,7 @@
 package com.jarik.library.entities;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
@@ -15,18 +17,25 @@ public class Book {
     @NotBlank(message = "At least small book description is mandatory")
     private String description;
 
- /*   // blob
+    // Upload files.
     @Lob
     @Column
-    private byte[] data;
-    public byte[] getData() {return data; }
-    public void setData(byte[] data) {this.data = data; }*/
+    private MultipartFile[] bookFile;
+
+    public MultipartFile[] getBookFile() { return bookFile; }
+    public void setBookFile(MultipartFile[] bookFile) { this.bookFile = bookFile; }
+
+
 
     // standard constructors / setters / getters / toString
     public Book() {}
-    public Book(@NotBlank(message = "Name is mandatory") String bookName, @NotBlank(message = "At least small book description is mandatory") String description) {
+
+    public Book(@NotBlank(message = "Book name is mandatory") String bookName,
+                @NotBlank(message = "At least small book description is mandatory") String description,
+                MultipartFile[] bookFile) {
         this.bookName = bookName;
         this.description = description;
+        this.bookFile = bookFile;
     }
 
     public long getId() {return id;  }
