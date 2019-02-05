@@ -4,52 +4,52 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Arrays;
 
 @Entity
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long bookId;
 
     @NotBlank(message = "Book name is mandatory")
     private String bookName;
 
-    @NotBlank(message = "At least small book description is mandatory")
-    private String description;
+    @NotBlank(message = "At least small book bookDescription is mandatory")
+    private String bookDescription;
 
     // Upload files.
     @Lob
-    @Column
-    private MultipartFile[] bookFile;
-
-    public MultipartFile[] getBookFile() { return bookFile; }
-    public void setBookFile(MultipartFile[] bookFile) { this.bookFile = bookFile; }
-
-
+    @Column(name = "bookFile", columnDefinition="BLOB")
+    private byte[] bookData;
 
     // standard constructors / setters / getters / toString
     public Book() {}
 
     public Book(@NotBlank(message = "Book name is mandatory") String bookName,
-                @NotBlank(message = "At least small book description is mandatory") String description,
-                MultipartFile[] bookFile) {
+                @NotBlank(message = "At least small book bookDescription is mandatory") String bookDescription,
+                byte[] bookData) {
         this.bookName = bookName;
-        this.description = description;
-        this.bookFile = bookFile;
+        this.bookDescription = bookDescription;
+        this.bookData = bookData;
     }
 
-    public long getId() {return id;  }
-    public void setId(long id) {  this.id = id; }
+    public byte[] getBookData() { return bookData; }
+    public void setBookData(byte[] bookData) { this.bookData = bookData; }
+    public long getBookId() {return bookId;  }
+    public void setBookId(long bookId) {  this.bookId = bookId; }
     public String getBookName() { return bookName;  }
     public void setBookName(String bookName) { this.bookName = bookName; }
-    public String getDescription() { return description;}
-    public void setDescription(String description) { this.description = description; }
+    public String getBookDescription() { return bookDescription;}
+    public void setBookDescription(String bookDescription) { this.bookDescription = bookDescription; }
+
     @Override
     public String toString() {
         return "Book{" +
-                "id=" + id +
+                "bookId=" + bookId +
                 ", bookName='" + bookName + '\'' +
-                ", description='" + description + '\'' +
+                ", bookDescription='" + bookDescription + '\'' +
+                ", bookData=" + Arrays.toString(bookData) +
                 '}';
     }
 }

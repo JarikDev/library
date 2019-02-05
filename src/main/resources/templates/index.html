@@ -29,10 +29,10 @@
                     <tbody>
                     <tr th:each="book : ${books}">
                         <td th:text="${book.bookName}"></td>
-                        <td th:text="${book.description}"></td>
-                        <td><a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-primary"><i class="fas fa-download ml-2"></i></a></td>
-                        <td><a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-primary"><i class="fas fa-edit ml-2"></i></a></td>
-                        <td><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-primary"><i class="fas fa-trash-alt ml-2"></i></a></td>
+                        <td th:text="${book.bookDescription}"></td>
+                        <td><a th:href="@{/edit/{bookId}(bookId=${book.bookId})}" class="btn btn-primary"><i class="fas fa-download ml-2"></i></a></td>
+                        <td><a th:href="@{/edit/{bookId}(bookId=${book.bookId})}" class="btn btn-primary"><i class="fas fa-edit ml-2"></i></a></td>
+                        <td><a th:href="@{/delete/{bookId}(bookId=${book.bookId})}" class="btn btn-primary"><i class="fas fa-trash-alt ml-2"></i></a></td>
                     </tr>
                     </tbody>
                 </table>

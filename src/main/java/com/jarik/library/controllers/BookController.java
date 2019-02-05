@@ -67,7 +67,7 @@ public class BookController {
     private String doUpload(HttpServletRequest request, Model model, //
                             Book book) {
 
-        String description = book.getDescription();
+        String description = book.getBookDescription();
         System.out.println("Description: " + description);
 
         // Root Directory.
@@ -79,7 +79,7 @@ public class BookController {
         if (!uploadRootDir.exists()) {
             uploadRootDir.mkdirs();
         }
-        MultipartFile[] fileDatas = book.getBookFile();
+        MultipartFile[] fileDatas = book.getBookData();
         //
         List<File> uploadedFiles = new ArrayList<File>();
         List<String> failedFiles = new ArrayList<String>();
@@ -134,7 +134,7 @@ public class BookController {
     public String updateBook(@PathVariable("id") long id, @Valid Book book,
                              BindingResult result, Model model) {
         if (result.hasErrors()) {
-            book.setId(id);
+            book.setBookId(id);
             return "update-book";
         }
 

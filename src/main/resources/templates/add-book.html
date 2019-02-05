@@ -20,16 +20,16 @@
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="bookName" class="col-form-label">Book name</label>
-                        <input type="text" th:field="*{bookName}" class="form-control" id="bookName"
+                        <input type="text" th:field="*{bookName}" class="form-control" bookId="bookName"
                                placeholder="book name...">
                         <span th:if="${#fields.hasErrors('bookName')}" th:errors="*{bookName}"
                               class="text-danger"></span>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="description" class="col-form-label">Description</label>
-                        <input type="text" th:field="*{description}" class="form-control" id="description"
-                               placeholder="description...">
-                        <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+                        <label for="bookDescription" class="col-form-label">Description</label>
+                        <input type="text" th:field="*{bookDescription}" class="form-control" bookId="bookDescription"
+                               placeholder="bookDescription...">
+                        <span th:if="${#fields.hasErrors('bookDescription')}" th:errors="*{bookDescription}"
                               class="text-danger"></span>
                     </div>
 
@@ -38,9 +38,9 @@
                               action="" enctype="multipart/form-data">
                             Description:
                             <br>
-                            <input th:field="*{description}" style="width:300px;"/>
+                            <input th:field="*{bookDescription}" style="width:300px;"/>
                             <br/><br/>
-                            File to upload: <input th:field="*{bookFile}" type="file"/>
+                            File to upload: <input th:field="*{bookData}" type="file"/>
                             <br/>
                             <input type="submit" value="Upload">
                         </form>
